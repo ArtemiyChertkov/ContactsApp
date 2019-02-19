@@ -23,6 +23,7 @@ namespace ContactsAppUI
             {
                 _project = ProjectManager.LoadFromFile(_path);
             }
+            ShowListBox();
         }
         public void ShowListBox()
         {
@@ -40,20 +41,12 @@ namespace ContactsAppUI
         {
             {
                 var form2 = new AddContacts();
-                //  form2.Owner = this;
-                //  form2.ShowDialog();
                 var UpdatedDate = form2.Data;
                 var i = form2.ShowDialog();
                 if (i == DialogResult.OK)
                 {
-
-                    // ContactlistBox.Items.Add(_project._contactslistone[k].SecondName);
                     _project._contactslistone.Add(UpdatedDate._contactsplus);
                     ContactslistBox.Items.Add(UpdatedDate.TxtBox);
-                    /*  _project._contactslistone.Add(UpdatedDate._contactsplus);
-                      ContactlistBox.Items.Add(UpdatedDate.TxtBox);
-                      _project.Sort(_project._contactslistone);
-                      */
                 }
 
                 ProjectManager.SaveToFile(_project, _path);
