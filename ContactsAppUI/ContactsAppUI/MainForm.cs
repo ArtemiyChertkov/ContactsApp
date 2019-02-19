@@ -24,6 +24,16 @@ namespace ContactsAppUI
                 _project = ProjectManager.LoadFromFile(_path);
             }
             ShowListBox();
+            ContactslistBox.Sorted = true;
+            Birthday();
+        }
+        private void Birthday()
+        {
+            Project birth = Project.Birthday(_project, DateTime.Today);
+            for (int i = 0; i != birth._contactslistone.Count; i++)
+            {
+                Birthdaylabel8.Text = Birthdaylabel8.Text + birth._contactslistone[i].SecondName + ". ";
+            }
         }
         public void ShowListBox()
         {
@@ -47,6 +57,7 @@ namespace ContactsAppUI
                 {
                     _project._contactslistone.Add(UpdatedDate._contactsplus);
                     ContactslistBox.Items.Add(UpdatedDate.TxtBox);
+                    _project.Sort(_project._contactslistone);
                 }
 
                 ProjectManager.SaveToFile(_project, _path);
@@ -77,7 +88,7 @@ namespace ContactsAppUI
                     vkidtextBox.Text = UpdatedDate._contactsplus.IDVk;
                     BirthTimePicker.Value = UpdatedDate._contactsplus.Birth;
                     PhonetextBox.Text = Convert.ToString(UpdatedDate._contactsplus.Phone.Number);
-                  
+                    _project.Sort(_project._contactslistone);
                 }
                 ProjectManager.SaveToFile(_project, _path);
 
@@ -161,6 +172,17 @@ namespace ContactsAppUI
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Remove();
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+            ContactslistBox.SelectedIndex = ContactslistBox.FindString(textBox6.Text);
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form3 = new About();
+            form3.ShowDialog();
         }
     }
 }
